@@ -7,9 +7,15 @@ export default class BoxList extends Component {
         super(props);
         this.state = {
             boxes: [
-                {width: 10, height: 40, color: "orange"}
+                {width: 10, height: 10, color: "orange"}
             ]
         }
+        this.create = this.create.bind(this);
+    }
+    create(newBox) {
+        this.setState({
+            boxes: [...this.state.boxes, newBox]
+        });
     }
     render() {
         const boxes = this.state.boxes.map(box => (
@@ -18,7 +24,7 @@ export default class BoxList extends Component {
         return (
             <div>
                 <h1>Color Box Maker</h1>
-                <NewBoxForm />
+                <NewBoxForm createBox={this.create}/>
                 {boxes}
             </div>
         );
