@@ -5,11 +5,7 @@ import NewBoxForm from './NewBoxForm';
 export default class BoxList extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            boxes: [
-                {width: 10, height: 10, color: "orange"}
-            ]
-        }
+        this.state = { boxes: [] };
         this.create = this.create.bind(this);
     }
     create(newBox) {
@@ -17,9 +13,20 @@ export default class BoxList extends Component {
             boxes: [...this.state.boxes, newBox]
         });
     }
+    remove(id) {
+        this.setState({
+            boxes: this.state.boxes.filter(box => box.id !== id)
+        });
+    }
     render() {
         const boxes = this.state.boxes.map(box => (
-            <Box height={box.height} width={box.width} color={box.color} />
+            <Box 
+                key={box.id} 
+                id={box.id} 
+                height={box.height} 
+                width={box.width} 
+                color={box.color}
+                removeBox={ () => this.remove(box.id) } />
         ));
         return (
             <div>
